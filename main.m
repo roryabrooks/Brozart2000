@@ -3,10 +3,21 @@ T_s = 1/f_s;
 bps = 1.68;
 N_n = floor(f_s/bps);
 
-C4_scale = [261.81,293.66,329.63,349.23,392,440,493.88,523.25];
+C4_scale = [261.81,293.66,329.63,349.23,392,440,493.88,523.25,2*293.66,2*329.63,2*349.23,2*392,2*440,2*493.88,2*523.25];
 zelda = [349.23,440,493.88,0,349.23,440,493.88,0,349.23,440,493.88,659.25];
 % F A B 0 F A B 0 F A B E
-period_sequence = normalised_period(f_s,zelda);
+
+%USE THIS LINE TO DEFINE INPUT SEQ
+input_seq = C4_scale;
+
+%getting input sequence length for counter to count up to
+seq_length = ceil(log2(length(input_seq)+1));
+input_seq = [input_seq, zeros([1 power(2, seq_length) - length(input_seq)])];
+
+%define length of time per note
+playback_speed = 0.5;
+
+period_sequence = normalised_period(f_s,input_seq);
 
 D2_period = normalised_period(f_s,73.42)
 
