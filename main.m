@@ -9,9 +9,27 @@ N_n = floor(f_s/bps); % note interval
 
 %% PROCESSING NOTE SEQUENCE VECTOR
 
-C4_scale = [261.81,293.66,329.63,349.23,392,440,493.88,523.25];
-zelda_freq = [349.23,440,493.88,0,349.23,440,493.88,0,349.23,440,493.88,659.25];
+C4_scale = [261.81/4,293.66/4,329.63/4,349.23/4,392/4,440/4,493.88/4,261.81/2,293.66/2,329.63/2,349.23/2,392/2,440/2,493.88/2,261.81,293.66,329.63,349.23,392,440,493.88,523.25,2*293.66,2*329.63,2*349.23,2*392,2*440,2*493.88,2*523.25];
+zelda = [349.23,440,493.88,0,349.23,440,493.88,0,349.23,440,493.88,659.25];
 % F A B 0 F A B 0 F A B E
+
+%USE THIS LINE TO DEFINE INPUT SEQ
+input_seq = C4_scale;
+
+%getting input sequence length for counter to count up to
+seq_length = ceil(log2(length(input_seq)+1));
+input_seq = [input_seq, zeros([1 power(2, seq_length) - length(input_seq)])];
+
+%define length of time per note
+playback_speed = 0.5;
+
+period_sequence = normalised_period(f_s,input_seq);
+
+D2_period = normalised_period(f_s,73.42)
+
+note = 30;
+freq_F_sharp_1 = midi_to_freq(note);
+
 zelda_period = normalised_period(f_s,zelda_freq);
 
 %% GENERATE GAUSSIAN NOISE WAVETABLE
