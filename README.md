@@ -1,6 +1,5 @@
-"# Brozart2000" 
 
-%% How to play:
+## How to play:
 
 In midi.m load the midi file via the line: 
 
